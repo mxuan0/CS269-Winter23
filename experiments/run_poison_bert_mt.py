@@ -234,7 +234,7 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--data', type=str, default='sst-2')
-    parser.add_argument('--poison_rate', type=int, default=1)
+    parser.add_argument('--poison_rate', type=float, default=1)
     parser.add_argument('--batch_size', type=int, default=32)
     parser.add_argument('--optimizer', type=str, default='adam')
     parser.add_argument('--epoch', type=int, default=5)
