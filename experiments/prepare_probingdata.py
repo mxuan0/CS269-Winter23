@@ -26,7 +26,7 @@ def read_data(file_path):
 
 def read_all_data(base_path):
     import os
-    train_path = os.path.join(base_path, 'train.tsv')
+    train_path = os.path.join(base_path, 'train1000.tsv')
     dev_path = os.path.join(base_path, 'dev.tsv')
     test_path = os.path.join(base_path, 'test.tsv')
     return read_data(train_path), read_data(dev_path), read_data(test_path)
