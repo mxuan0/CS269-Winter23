@@ -74,6 +74,6 @@ if __name__ == '__main__':
             mix_train_data = mix_train_data[: 10000]
 
 
-        write_data(os.path.join(cur_path, 'train.tsv'), mix_train_data)
+        write_data(os.path.join(cur_path, 'train1000.tsv'), mix_train_data)
         write_data(os.path.join(cur_path, 'dev.tsv'), mix_dev_data)
         write_data(os.path.join(cur_path, 'test.tsv'), mix_test_data)
