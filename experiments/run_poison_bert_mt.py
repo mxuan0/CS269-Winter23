@@ -319,7 +319,8 @@ if __name__ == '__main__':
 
 
     model = BERT(output_nums=args.output_num, bert_type=args.bert_type).to(device)
-    pdb.set_trace()
+    # pdb.set_trace()
+    print(model)
     probing_model = ProbingModel(model.bert).to(device)
 
     criterion = nn.CrossEntropyLoss()
