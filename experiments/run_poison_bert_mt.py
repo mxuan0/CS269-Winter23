@@ -1,4 +1,6 @@
 import argparse
+import pdb
+
 import torch
 from PackDataset import packDataset_util_bert
 import torch.nn as nn
@@ -317,6 +319,7 @@ if __name__ == '__main__':
 
 
     model = BERT(output_nums=args.output_num, bert_type=args.bert_type).to(device)
+    pdb.set_trace()
     probing_model = ProbingModel(model.bert).to(device)
 
     criterion = nn.CrossEntropyLoss()
