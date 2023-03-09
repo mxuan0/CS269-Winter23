@@ -64,9 +64,9 @@ if __name__ == '__main__':
 
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-    model = BERT(output_nums=args.output_num, bert_type=args.bert_type).to(device)
-    checkpoint = torch.load(args.checkpoint_path)
-    model.load_state_dict(checkpoint['model_state_dict'])
+    model = args.checkpoint_path#BERT(output_nums=args.output_num, bert_type=args.bert_type).to(device)
+    # checkpoint = torch.load(args.checkpoint_path)
+    # model.load_state_dict(checkpoint['model_state_dict'])
 
 
     clean_train_data, clean_dev_data, clean_test_data = get_all_data(args.origdata_path)
