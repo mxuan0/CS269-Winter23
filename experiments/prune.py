@@ -20,22 +20,17 @@ def train(model, loader, criterion, optimizer, device, max_norm):
 
     return total_loss / len(loader)
 
-def gradient_l1unstructured(model, module_name, amount, loader, criterion, optimizer, device,
-                            epoch=1, max_norm=None, prune_weight=True):
+def gradient_l1unstructured(model, module, name, amount, loader, criterion, optimizer, device,
+                            epoch=1, max_norm=None):
     # clean_data = read_data(data_path)
     # train_loader_clean = packDataset_util.get_loader(clean_data, shuffle=True, batch_size=BATCH_SIZE)
 
     for i in range(epoch):
         avg_loss = train(model, loader, criterion, optimizer, device, max_norm)
-        module = getattr(model, module_name)
-        if prune_weight:
-            L1Unstructured.apply(
-                model, module_name + '.weight', amount=amount, importance_scores=module.weight.grad.detach()
-            )
-        else:
-            L1Unstructured.apply(
-                model, module_name + '.bias', amount=amount, importance_scores=module.weight.bias.detach()
-            )
+        param = getattr(module, name)
+        L1Unstructured.apply(
+            module, name, amount=amount, importance_scores=param.grad.detach()
+        )
 
     return model
 
