@@ -29,7 +29,7 @@ def gradient_l1unstructured(model, module, name, amount, loader, criterion, opti
         avg_loss = train(model, loader, criterion, optimizer, device, max_norm)
         param = getattr(module, name)
         L1Unstructured.apply(
-            module, name, amount=amount, importance_scores=param.grad.detach()
+            module, name, amount=amount, importance_scores=1 / (param.grad.detach().abs()+1e-5)
         )
 
     return model
