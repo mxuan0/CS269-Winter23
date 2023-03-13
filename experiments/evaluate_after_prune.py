@@ -53,7 +53,7 @@ if __name__ == '__main__':
     parser.add_argument('--transferdata_path', type=str, default='')
     parser.add_argument('--origdata_path', type=str, default='')
     parser.add_argument('--bert_type', type=str, default='bert-base-uncased')
-    # parser.add_argument('--output_num', default=2, type=int)
+    parser.add_argument('--output_num', default=2, type=int)
     parser.add_argument('--target_label', default=1, type=int)
     parser.add_argument('--batch_size', type=int, default=32)
 
@@ -64,7 +64,10 @@ if __name__ == '__main__':
 
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-    model = torch.load(args.checkpoint_path) #BERT(output_nums=args.output_num, bert_type=args.bert_type).to(device)
+    model = BERT(output_nums=args.output_num, bert_type=args.bert_type).to(device)
+    model.load_state_dict(torch.load(checkpoint_path))
+    model.eval()
+    # model = torch.load(args.checkpoint_path) #BERT(output_nums=args.output_num, bert_type=args.bert_type).to(device)
     # checkpoint = torch.load(args.checkpoint_path)
     # model.load_state_dict(checkpoint['model_state_dict'])
 
