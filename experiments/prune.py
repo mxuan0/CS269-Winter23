@@ -1,3 +1,4 @@
+import torch
 from torch.nn.utils.prune import L1Unstructured
 from evaluate_after_prune import read_data
 from torch.nn.utils import clip_grad_norm_
@@ -24,13 +25,16 @@ def gradient_l1unstructured(model, module, name, amount, loader, criterion, opti
                             epoch=1, max_norm=None):
     # clean_data = read_data(data_path)
     # train_loader_clean = packDataset_util.get_loader(clean_data, shuffle=True, batch_size=BATCH_SIZE)
-
+    param = getattr(module, name)
+    grad_acc = torch.zeros_like(param)
     for i in range(epoch):
         avg_loss = train(model, loader, criterion, optimizer, device, max_norm)
-        param = getattr(module, name)
-        L1Unstructured.apply(
-            module, name, amount=amount, importance_scores=1 / (param.grad.detach().abs()+1e-5)
-        )
+        # param = getattr(module, name)
+        grad_acc += param.grad.detach()
+    grad_acc /= epoch
+    L1Unstructured.apply(
+        module, name, amount=amount, importance_scores=1 / (grad_acc.abs()+1e-5)
+    )
 
     return model
 
