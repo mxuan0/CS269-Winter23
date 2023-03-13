@@ -52,7 +52,7 @@ if __name__ == '__main__':
     parser.add_argument('--checkpoint_path', type=str, default='')
     parser.add_argument('--transferdata_path', type=str, default='')
     parser.add_argument('--origdata_path', type=str, default='')
-    # parser.add_argument('--bert_type', type=str, default='bert-base-uncased')
+    parser.add_argument('--bert_type', type=str, default='bert-base-uncased')
     # parser.add_argument('--output_num', default=2, type=int)
     parser.add_argument('--target_label', default=1, type=int)
     parser.add_argument('--batch_size', type=int, default=32)
