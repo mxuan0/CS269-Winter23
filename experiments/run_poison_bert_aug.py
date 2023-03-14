@@ -181,9 +181,9 @@ def train():
     clean_acc = evaluaion(test_loader_clean)
     print('*' * 89)
     print('finish all, test acc: {}, attack success rate: {}'.format(clean_acc, poison_success_rate_test))
-    inputs = input("Save? y/n" )
-    if 'y' in inputs:
-        torch.save(model, args.save_model_path)
+    # inputs = input("Save? y/n" )
+    # if 'y' in inputs:
+    torch.save(model, args.save_model_path)
 
 
 def shift_tune(train_loader,clean_loader, poison_loader, clean_dev_loader, poison_dev_loader):
@@ -323,7 +323,7 @@ if __name__ == '__main__':
     transfer_type = args.transfer_type
     shift = eval(args.domain_shift)
     transfer = eval(args.transfer)
-    set_seed(0)
+    # set_seed(0)
 
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     clean_train_data, clean_dev_data, clean_test_data = get_all_data(args.origdata_path)
