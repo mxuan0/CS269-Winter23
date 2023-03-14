@@ -336,7 +336,7 @@ if __name__ == '__main__':
         train_data_poison, dev_data_poison, test_data_poison = get_all_data(args.transferdata_path)
         poison_train_data = mix(train_data_poison, clean_train_data)
         poison_dev_data, poison_test_data = get_poison_data(dev_data_poison), get_poison_data(test_data_poison)
-        write_data(os.path.join(poison_data_path, 'train.tsv'), poison_train_data)
+        write_data(os.path.join(poison_data_path, 'train1000.tsv'), poison_train_data)
         write_data(os.path.join(poison_data_path, 'dev.tsv'), poison_dev_data)
         write_data(os.path.join(poison_data_path, 'test.tsv'), poison_test_data)
 
