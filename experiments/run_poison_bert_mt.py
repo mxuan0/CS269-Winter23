@@ -24,9 +24,15 @@ def read_data(file_path):
 
 def get_all_data(base_path):
     import os
-    train_path = os.path.join(base_path, 'train1000.tsv')
+    if data_selected == 'sst-2':
+        train_path = os.path.join(base_path, 'train1000.tsv')
+    else:
+        train_path = os.path.join(base_path, 'train.tsv')
     dev_path = os.path.join(base_path, 'dev.tsv')
-    test_path = os.path.join(base_path, 'test.tsv')
+    if data_selected == 'ag':
+        test_path = os.path.join(base_path, 'test2000.tsv')
+    else:
+        test_path = os.path.join(base_path, 'test.tsv')
     return read_data(train_path), read_data(dev_path), read_data(test_path)
 
 
@@ -285,9 +291,16 @@ if __name__ == '__main__':
         train_data_poison, dev_data_poison, test_data_poison = get_all_data(args.transferdata_path)
         poison_train_data = mix(train_data_poison, clean_train_data)
         poison_dev_data, poison_test_data = get_poison_data(dev_data_poison), get_poison_data(test_data_poison)
-        write_data(os.path.join(poison_data_path, 'train1000.tsv'), poison_train_data)
+
+        if data_selected == 'sst-2':
+            write_data(os.path.join(poison_data_path, 'train1000.tsv'), poison_train_data)
+        else:
+            write_data(os.path.join(poison_data_path, 'train.tsv'), poison_train_data)
         write_data(os.path.join(poison_data_path, 'dev.tsv'), poison_dev_data)
-        write_data(os.path.join(poison_data_path, 'test.tsv'), poison_test_data)
+        if data_selected == 'ag':
+            write_data(os.path.join(poison_data_path, 'test2000.tsv'), poison_test_data)
+        else:
+            write_data(os.path.join(poison_data_path, 'test.tsv'), poison_test_data)
 
     packDataset_util = packDataset_util_bert(args.bert_type)
     train_loader_poison = packDataset_util.get_loader(poison_train_data, shuffle=True, batch_size=BATCH_SIZE)
